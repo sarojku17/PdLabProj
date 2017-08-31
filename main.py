@@ -19,7 +19,14 @@ for i in range(3):
 #plt.show()
 cv2.imshow('image',images[1])
 cv2.waitKey(0)
-x=images[1]/255
+x=images[1]
+for i in range(len(x)):
+    for j in range(len(x[0])):
+        if (x[i][j]>230):
+            x[i][j]=1
+        else:
+            x[i][j]=0
+
 
 for i in range(len(x)):
     for j in range(len(x[0])):
