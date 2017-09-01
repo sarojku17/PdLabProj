@@ -19,6 +19,8 @@ for i in range(3):
 #plt.show()
 cv2.imshow('image',images[1])
 cv2.waitKey(0)
+newImage = images[1].copy()
+newImage1 = images[1].copy()
 x=images[1]
 for i in range(len(x)):
     for j in range(len(x[0])):
@@ -42,21 +44,40 @@ e=8
 start=0
 end=1
 counter=0
-print(len(arr))
-while- start+counter<len(arr) :
-    print(start+counter)
-    counter=0
-    if arr[start+counter]>0.90*len(x[0]) :
+print(arr[0],arr[1])
+midlist=[0];
+while start + counter <len(arr):
+    #print('start+counter ', start + counter, 'start', start, 'counter', counter, 'arr[start+counter]',arr[start + counter], '0.90*len(x[0]', 0.90 * len(x[0]))
+    if arr[start+counter]>0.98*len(x[0]):
+     #   print(arr[start + counter] > 0 * len(x[0]))
+      #  print(start+counter)
+       # print(arr[start + counter])
+        #print(0.90 * len(x[0]))
         counter=counter+1
-
+        #print('hyi')
         if counter>e:
             end=start+counter
             mid=(end+start)/2
-            print(mid)
+            midlist.append(mid)
             start = start + counter;
-
+            counter=0
     else:
         counter=counter+1
-        start=start+counter;
-    #print('y')
-    break
+        start=start+counter
+        counter=0
+        #print('hyi1')
+
+cv2.imshow('image',newImage)
+cv2.waitKey(0)
+
+kernel = np.zeros((20,20),np.uint8)
+newImage = cv2.dilate(newImage,kernel,iterations = 1)
+for i in range(len(midlist)):
+    cv2.line(newImage,(0,int(midlist[i])),(len(x[0]),int (midlist[i])),(0,0,255))
+cv2.imshow('image',newImage)
+cv2.waitKey(0)
+
+for i in range(len(midlist)-1):
+    roi = img[int(midlist[i]):int(midlist[i+1]),0:len(x[0])]
+    cv2.imshow('ROI',roi)
+    cv2.waitKey(0)
