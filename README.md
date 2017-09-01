@@ -2,7 +2,9 @@
 
 Required softwares;
 Pyton Interpret https://www.python.org/downloads/release/python-362/
+
 pycharm editor https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC
+
 pip installer https://bootstrap.pypa.io/get-pip.py
 
 
