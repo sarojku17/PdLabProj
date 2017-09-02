@@ -28,4 +28,5 @@ def maskfunction(img, change, zerovectorsize):
             img[x, y:img_width - 1] = 0
     cv2.imshow('image', img)
     cv2.waitKey(0)
+    return img
 

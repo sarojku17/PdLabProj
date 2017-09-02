@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-img = cv2.imread('2.jpeg',0)
+img = cv2.imread('EqnImage.png',0)
 
 th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
             cv2.THRESH_BINARY,11,2)
@@ -60,7 +60,7 @@ cv2.imshow('image',newImage)
 cv2.waitKey(0)
 
 print
-for i in range(len(midlist)-2):
+for i in range(len(midlist)-1):
     row1=int(midlist[i])
     row2=int(midlist[i+1])
     intensity=np.sum(arr[row1:row2+1])
