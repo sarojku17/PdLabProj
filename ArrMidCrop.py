@@ -1,6 +1,14 @@
 import cv2
 import numpy as np
 
+def show(Name,img):
+    cv2.imshow(Name,img)
+    cv2.waitKey(0)
+
+def line(img,rowsize,colsize):
+    #img[:4, :] = img[:,:4] = img[rowsize-5:,:] = img[:,colsize-5:] = 255
+    return  img
+
 def SumINTOarr(newImage):
 
     x=newImage
@@ -11,19 +19,13 @@ def SumINTOarr(newImage):
             else:
                 x[i][j]=0
 
-    for i in range(len(x)):
-        for j in range(len(x[0])):
-           print(x[i][j], end=" ")
-        print("\n")
-
     arr=np.zeros(len(x))
     for i in range(len(x)):
         arr=np.sum(x,axis=1)
-        #print(i,'-->',arr[i])
     return arr
 
 def MIDpointARR(arr,th3):
-    e=2
+    e=1
     start=0
     end=0
     counter=0
@@ -31,7 +33,7 @@ def MIDpointARR(arr,th3):
     x = th3
     while start + counter <len(arr):
 
-        if arr[start+counter]>0.999*len(x[0]):
+        if arr[start+counter]>0.9999*len(x[0]):
 
             counter=counter+1
 
@@ -51,8 +53,9 @@ def MIDpointARR(arr,th3):
 
 
 
-def CROPimage(midlist,newImage,arr,path):
+def CROPimage(midlist,newImage,arr,path,decide,imgno):
     x=newImage
+    newImage1=newImage.copy();
     for i in range(len(midlist)):
         cv2.line(newImage,(0,int(midlist[i])),(len(x[0]),int (midlist[i])),(0,0,255))
     cv2.imshow('image',newImage)
@@ -63,9 +66,11 @@ def CROPimage(midlist,newImage,arr,path):
         row2=int(midlist[i+1])
         intensity=np.sum(arr[row1:row2+1])
         if ((row2-row1+1)*len(newImage[0])*0.97)>intensity:
-            roi = newImage[int(midlist[i]):int(midlist[i+1]),0:len(x[0])]
-            cv2.imshow('ROI',roi)
-            cv2.imwrite(str(path) + str(counter) + '.png', roi)
+            roi = newImage1[int(midlist[i]):int(midlist[i+1]),0:len(x[0])]
+            if decide==0:
+                cv2.imwrite(str(path) + str(counter) + '.png', roi)
+            else:
+                cv2.imwrite(str(path) + str(imgno) + str(counter) + '.png', roi)
             counter=counter+1
             cv2.waitKey(0)
 

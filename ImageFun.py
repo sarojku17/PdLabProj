@@ -1,12 +1,13 @@
 import cv2
 import numpy as np
+from ArrMidCrop import *
+import os
 
-def BINuGAU(img):
-    th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
-            cv2.THRESH_BINARY,11,2)
-    cv2.imshow('Binery Image',th3)
-    cv2.waitKey(0)
+def BINuGAU(img,decide):
+    #kernel = np.zeros((2,2), np.uint8)
+    th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
     return th3
+
 def rotateImage(image,i):
     angle=90
     (h, w) = image.shape[:2]
@@ -26,5 +27,9 @@ def rotateImage(image,i):
     # adjust the rotation matrix to take into account translation
     M[0, 2] += (nW / 2) - cX
     M[1, 2] += (nH / 2) - cY
-    path = 'E:/5th sem/PdLabProj/RotImg/'
-    cv2.imwrite(str(path) + str(i) + '.png', cv2.warpAffine(image, M, (nW, nH)))
+    path = 'C:/Users/SAROJ/Desktop/PdLabProj/RotImg/'
+    cv2.imwrite(str(path) + str(i) + '.png', cv2.warpAffine(image, M, (nW, nH-1)))
+    image1 = cv2.imread(os.path.join(path, str(i) + '.png'), 0)
+    image2 = image1[3:len(image1)-3,2:len(image[0])-2]
+    cv2.imwrite(str(path) + str(i) + '.png', image2)
+    show('x,s,',image2)
