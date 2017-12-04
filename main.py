@@ -30,7 +30,7 @@ for i in range(len(x)):
     arr=np.sum(x,axis=1)
     print(i,'-->',arr[i])
 
-e=2
+e=1
 start=0
 end=0
 counter=0

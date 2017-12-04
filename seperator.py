@@ -1,29 +1,32 @@
 import cv2
+import os
 import numpy as np
-from ImageFun import BINuGAU,rotateImage
-from ArrMidCrop import SumINTOarr,MIDpointARR,CROPimage,show
-from mask import *
+from ImageFun import BINuGAU
+from ArrMidCrop import SumINTOarr,MIDpointARR,CROPimage
+from  mask import changelist,maskfunction
 
-def seperatorfun(img,path,decide,imgno):
-    #readRot = cv2.imread(os.path.join(path, str(i) + '.png'), 0)
+def seperatorfun(img,path,decide,imageno):
 
     masksize = len(img[0]) /20
-    if(decide==0):
-        BinImg = BINuGAU(img,0)
-    else:
-        BinImg = BINuGAU(img,1)
+    BinImg = BINuGAU(img)
     Image4Arr = BinImg.copy()
     Image4Mask = BinImg.copy()
-
-
+    cv2.waitKey(0)
     arr = SumINTOarr(Image4Arr)
-    if(decide==0):
-        change = changelist(Image4Mask)
-        image = maskfunction(Image4Mask, change, masksize)
-    else:
-        change = changelist2(Image4Mask)
-        image= maskfunction2(Image4Mask, change, 2)
-
-
+    change = changelist(Image4Mask)
+    image = maskfunction(Image4Mask, change, masksize)
     midlist = MIDpointARR(arr, image)
-    return CROPimage(midlist, img, arr,path,decide,imgno)
+    return CROPimage(midlist, img, arr,path,decide,imageno)
+
+def seperatorfun2(img,path,decide,imageno,glo):
+
+    masksize = len(img[0]) /20
+    BinImg = BINuGAU(img)
+    Image4Arr = BinImg.copy()
+    Image4Mask = BinImg.copy()
+    cv2.waitKey(0)
+    arr = SumINTOarr(Image4Arr)
+    change = changelist(Image4Mask)
+    #image = maskfunction(Image4Mask, change, masksize)
+    midlist = MIDpointARR(arr, Image4Mask)
+    return CROPimage(midlist, img, arr,path,decide,imageno)
